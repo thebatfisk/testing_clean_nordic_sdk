@@ -4,6 +4,9 @@
 /nRF5_SDK_15.3.0_59ac345/*
 /nRF5SDK1510a8c0c4d/*
 
+**/build
+**/Output
+
 # Prerequisites
 *.d
 
@@ -41,6 +44,7 @@
 *.i*86
 *.x86_64
 *.hex
+*.jlink
 
 # Debug files
 *.dSYM/
@@ -60,3 +64,4 @@
 # SEGGER
 
 *.emSession
+*.emProject
