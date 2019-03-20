@@ -1,3 +1,9 @@
+# nRF5 (not mesh) SDKs
+/nRF5_SDK_15.0.0_a53641a/*
+/nRF5_SDK_15.2.0_9412b96/*
+/nRF5_SDK_15.3.0_59ac345/*
+/nRF5SDK1510a8c0c4d/*
+
 # Prerequisites
 *.d
 
