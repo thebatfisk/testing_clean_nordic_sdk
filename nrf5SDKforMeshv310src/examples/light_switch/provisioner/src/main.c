@@ -75,6 +75,8 @@
 #include "ble_softdevice_support.h"
 #include "example_common.h"
 
+#include "nrf_mesh_serial.h"
+
 #define APP_NETWORK_STATE_ENTRY_HANDLE (0x0001)
 #define APP_FLASH_PAGE_COUNT           (1)
 
@@ -539,6 +541,8 @@ static void mesh_init(void)
 
     nrf_mesh_evt_handler_add(&m_mesh_core_event_handler);
 
+    ERROR_CHECK(nrf_mesh_serial_init(NULL));
+
     /* Load application configuration, if available */
     m_dev_handles.flash_load_success = app_flash_config_load();
 
@@ -612,6 +616,8 @@ static void start(void)
 #endif
 
     ERROR_CHECK(nrf_mesh_enable());
+
+    ERROR_CHECK(nrf_mesh_serial_enable());
 
     hal_led_mask_set(LEDS_MASK, LED_MASK_STATE_OFF);
     hal_led_blink_ms(LEDS_MASK, LED_BLINK_INTERVAL_MS, LED_BLINK_CNT_START);

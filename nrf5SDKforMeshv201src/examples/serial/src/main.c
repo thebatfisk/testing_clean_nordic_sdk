@@ -116,6 +116,28 @@ int main(void)
     initialize();
     execution_start(start);
 
+//    uint8_t uart_link_array[128];
+//
+//    uart_link_array[0] = 0xAA;
+//    uart_link_array[1] = 0xAA;
+//    uart_link_array[2] = 0xAA;
+//    uart_link_array[3] = 0xAA;
+//    uart_link_array[4] = 0xAA;
+//
+//    uint32_t serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+//    serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+//    serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+//    serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+//    serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+
+//     if(serial_error_code)
+//    {
+//      __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "ERROR SENDING HEALTH DATA OVER UART. Error code: %d\n", serial_error_code);
+//    }else
+//    {
+//      __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "DATA SENT OVER UART\n");
+//    }
+
     for (;;)
     {
         (void)sd_app_evt_wait();

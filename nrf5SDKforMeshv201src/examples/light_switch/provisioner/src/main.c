@@ -74,6 +74,8 @@
 #include "example_network_config.h"
 #include "nrf_mesh_config_examples.h"
 
+#include "nrf_mesh_serial.h"
+
 #define RTT_INPUT_POLL_PERIOD_MS (100)
 #define LED_BLINK_INTERVAL_MS    (200)
 #define LED_BLINK_CNT_START      (2)
@@ -514,6 +516,8 @@ static void mesh_init(void)
     /* Load application configuration, if available */
     m_dev_handles.flash_load_success = app_flash_config_load();
 
+    ERROR_CHECK(nrf_mesh_serial_init(NULL));
+
     /* Initialize the provisioner */
     mesh_provisioner_init_params_t m_prov_helper_init_info =
     {
@@ -580,6 +584,8 @@ static void start(void)
 #if (!PERSISTENT_STORAGE)
     app_start();
 #endif
+
+    ERROR_CHECK(nrf_mesh_serial_enable());
 
     hal_led_mask_set(LEDS_MASK, LED_MASK_STATE_OFF);
     hal_led_blink_ms(LEDS_MASK, LED_BLINK_INTERVAL_MS, LED_BLINK_CNT_START);

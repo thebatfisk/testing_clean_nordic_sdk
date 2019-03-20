@@ -75,6 +75,8 @@
 #include "ble_softdevice_support.h"
 #include "example_common.h"
 
+#include "nrf_mesh_serial.h"
+
 #define APP_NETWORK_STATE_ENTRY_HANDLE (0x0001)
 #define APP_FLASH_PAGE_COUNT           (1)
 
@@ -522,6 +524,8 @@ static void mesh_init(void)
 
     nrf_mesh_evt_handler_add(&m_mesh_core_event_handler);
 
+    ERROR_CHECK(nrf_mesh_serial_init(NULL));
+
     /* Load application configuration, if available */
     m_dev_handles.flash_load_success = app_flash_config_load();
 
@@ -596,6 +600,8 @@ static void start(void)
 
     ERROR_CHECK(nrf_mesh_enable());
 
+    ERROR_CHECK(nrf_mesh_serial_enable());
+
     hal_led_mask_set(LEDS_MASK, LED_MASK_STATE_OFF);
     hal_led_blink_ms(LEDS_MASK, LED_BLINK_INTERVAL_MS, LED_BLINK_CNT_START);
 }
@@ -604,6 +610,28 @@ int main(void)
 {
     initialize();
     start();
+
+    uint8_t uart_link_array[128];
+
+    uart_link_array[0] = 0xAA;
+    uart_link_array[1] = 0xAA;
+    uart_link_array[2] = 0xAA;
+    uart_link_array[3] = 0xAA;
+    uart_link_array[4] = 0xAA;
+
+    uint32_t serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+//    serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+//    serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+//    serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+//    serial_error_code = nrf_mesh_serial_tx(uart_link_array, 3);
+
+     if(serial_error_code)
+    {
+      __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "ERROR SENDING HEALTH DATA OVER UART. Error code: %d\n", serial_error_code);
+    }else
+    {
+      __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "DATA SENT OVER UART\n");
+    }
 
     for (;;)
     {
